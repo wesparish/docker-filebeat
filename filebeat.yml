@@ -1,0 +1,7 @@
+filebeat.prospectors:
+- input_type: log
+  paths: '${LOG_FILE_PATHS}'
+
+output.logstash:
+  hosts: '${LOGSTASH_HOSTS}'
+
