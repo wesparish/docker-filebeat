@@ -7,4 +7,4 @@ ENV LOG_FILE_PATHS="/host-var-log/*log,/host-var-log/*/*log,/containers/*/*log" 
 
 USER root
 
-RUN chown filebeat /usr/share/filebeat/filebeat.yml
+RUN chown root:filebeat /usr/share/filebeat/filebeat.yml
