@@ -1,7 +1,16 @@
 filebeat.prospectors:
 - input_type: log
   paths: '${LOG_FILE_PATHS}'
+  tail_files: true
+
+- input_type: log
+  paths: /containers/*/*log
+  json.keys_under_root: true
+  json.add_error_key: true
+  json.message_key: log
+  tail_files: true
 
 output.logstash:
   hosts: '${LOGSTASH_HOSTS}'
 
+name: '${HOSTNAME}'
