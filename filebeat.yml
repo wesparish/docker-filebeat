@@ -2,6 +2,8 @@ filebeat.prospectors:
 - input_type: log
   paths: '${LOG_FILE_PATHS}'
   tail_files: true
+  fields:
+    location: '${LOCATION}'
 
 - input_type: log
   paths: /containers/*/*log
@@ -9,8 +11,25 @@ filebeat.prospectors:
   json.add_error_key: true
   json.message_key: log
   tail_files: true
+  fields:
+    location: '${LOCATION}'
+
+processors:
+- drop_event:
+    when:
+      contains:
+        log: "querying policy failed"
+- drop_event:
+    when:
+        contains:
+          log: "sending DPD request"
+- drop_event:
+    when:
+        contains:
+          log: "parsed INFORMATIONAL response"
 
 output.logstash:
   hosts: '${LOGSTASH_HOSTS}'
 
 name: '${HOSTNAME}'
+filebeat.registry_file: /registry/registry_file
