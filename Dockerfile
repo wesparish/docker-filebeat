@@ -8,6 +8,9 @@ ENV LOG_FILE_PATHS="/host-var-log/*log,/host-var-log/*/*log" \
 
 USER root
 
+RUN curl -Lo /usr/local/bin/jq https://github.com/stedolan/jq/releases/download/jq-1.5/jq-linux64 && \
+    chmod 0755 /usr/local/bin/jq
+
 RUN chown root:filebeat /usr/share/filebeat/filebeat.yml
 
 COPY docker-entrypoint.sh /docker-entrypoint.sh
